@@ -1,0 +1,57 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h2 class="h2">Employee List</h2>
+  <a
+    class="btn btn-success"
+    (click)="onCreate()"
+  >
+    Add Employee
+  </a>
+</div>
+<div class="pricing-header mx-auto">
+
+  <div class="table-responsive">
+    <table
+      class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg"
+    >
+      <thead>
+      <tr>
+        <th scope="col">Employee Id</th>
+        <th scope="col">Employee name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Mobile number</th>
+        <th scope="col">Address</th>
+        <th class="text-center" scope="col">Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="
+            let Employee of pagination.items | paginate: { itemsPerPage: pageSize, currentPage: pagination.currentPage,totalItems: pagination.totalItems };
+            let i = index
+          "
+      >
+        <th scope="row">{{ Employee.id }}</th>
+        <td>{{ Employee.fullName }}</td>
+        <td>{{ Employee.email }}</td>
+        <td>{{ Employee.phoneNumber }}</td>
+        <td>{{ Employee.address }}</td>
+        <td class="text-center action-block">
+            <span
+              class="mr-2 btn btn-outline-primary btn-sm"
+              routerLink="{{ Employee.id }}/edit"
+            >Edit</span
+            >
+          <span
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteEmployee(Employee.id)"
+          >Delete</span
+          >
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
+</div>
